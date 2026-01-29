@@ -73,7 +73,7 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
         <span className="canvas-node-drag" {...listeners} {...attributes}>⋮⋮</span>
         <span className="canvas-node-type">{node.type}</span>
         <div className="canvas-node-actions">
-          {!isLayout && (
+          {!isLayout && node.type !== 'HR' && (
             <button type="button" className="canvas-node-btn canvas-node-settings" onClick={(e) => { e.stopPropagation(); e.preventDefault(); onSettings(node); }} title="Settings">⚙</button>
           )}
           <button type="button" className="canvas-node-btn canvas-node-delete" onClick={(e) => { e.stopPropagation(); e.preventDefault(); setShowDeleteConfirm(true); }} title="Delete">✕</button>

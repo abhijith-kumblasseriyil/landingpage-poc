@@ -121,7 +121,7 @@ function CanvasTab() {
         node.slots = Array.from({ length: numCols }, () => [])
       }
       addComponent(targetPageIndex, targetSlotKey, targetIndex, node)
-      if (!meta.isLayout) {
+      if (!meta.isLayout && type !== 'HR') {
         setSettingsNode(node)
         setSettingsPageIndex(targetPageIndex)
       }

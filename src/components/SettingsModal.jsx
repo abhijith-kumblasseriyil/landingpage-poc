@@ -12,7 +12,7 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
     if (node) setProps({ ...node.props })
   }, [node])
 
-  if (!node || !meta || meta.isLayout) return null
+  if (!node || !meta || meta.isLayout || node.type === 'HR') return null
 
   const handleChange = (key, value) => {
     setProps((p) => ({ ...p, [key]: value }))
