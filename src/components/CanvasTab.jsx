@@ -47,8 +47,6 @@ function CanvasTab() {
   }, [currentPageIndex])
   const handleSettingsSave = useCallback((pageIndex, nodeId, props) => {
     updateComponent(pageIndex, nodeId, props)
-    setSettingsNode(null)
-    setSettingsPageIndex(null)
   }, [updateComponent])
   const handleSettingsClose = useCallback(() => {
     setSettingsNode(null)

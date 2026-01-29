@@ -15,12 +15,13 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
   if (!node || !meta || meta.isLayout || node.type === 'HR') return null
 
   const handleChange = (key, value) => {
-    setProps((p) => ({ ...p, [key]: value }))
+    const next = { ...props, [key]: value }
+    setProps(next)
+    onSave(pageIndex, node.id, next)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSave(pageIndex, node.id, props)
     onClose()
   }
 
@@ -351,8 +352,7 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
             </div>
           </div>
           <div className="settings-modal-actions">
-            <button type="button" onClick={onClose}>Cancel</button>
-            <button type="submit">Save</button>
+            <button type="button" onClick={onClose}>Close</button>
           </div>
         </form>
       </div>
