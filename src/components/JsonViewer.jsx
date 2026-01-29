@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './JsonViewer.css'
 
-function JsonViewer({ data, onLoad }) {
+function JsonViewer({ data, onLoad, onClose }) {
   const [jsonInput, setJsonInput] = useState('')
   const [showInput, setShowInput] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -37,6 +37,11 @@ function JsonViewer({ data, onLoad }) {
 
   const headerActions = (fullscreen) => (
     <div className="json-viewer-actions">
+      {onClose && (
+        <button onClick={onClose} title="Close" className="json-viewer-btn-icon">
+          ×
+        </button>
+      )}
       <button onClick={() => setShowInput(!showInput)}>
         {showInput ? 'Hide' : 'Show'} Input
       </button>

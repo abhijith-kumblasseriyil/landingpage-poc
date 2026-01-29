@@ -31,7 +31,7 @@ function CanvasTab() {
   } = useBuilder()
 
   const [isPreview, setIsPreview] = useState(false)
-  const [showJson, setShowJson] = useState(true)
+  const [showJson, setShowJson] = useState(false)
   const [settingsNode, setSettingsNode] = useState(null)
   const [settingsPageIndex, setSettingsPageIndex] = useState(null)
 
@@ -241,11 +241,7 @@ function CanvasTab() {
           onClick={(e) => { if (e.target === e.currentTarget) setShowJson(false) }}
         >
           <div className="canvas-tab-json-popup" onClick={(e) => e.stopPropagation()}>
-            <div className="canvas-tab-json-popup-header">
-              <span>JSON Output</span>
-              <button type="button" className="canvas-tab-json-popup-close" onClick={() => setShowJson(false)} title="Close">×</button>
-            </div>
-            <JsonViewer data={outputSchema} onLoad={loadSchema} />
+            <JsonViewer data={outputSchema} onLoad={loadSchema} onClose={() => setShowJson(false)} />
           </div>
         </div>
       )}
