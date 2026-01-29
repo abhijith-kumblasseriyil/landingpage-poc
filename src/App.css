@@ -1,0 +1,71 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: #f8fafc;
+}
+
+.app-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.app-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.app-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: 0;
+}
+
+.app-tab {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.app-tab:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.app-tab.active {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.app-main {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main .template-details-tab {
+  overflow: auto;
+  padding: 2rem;
+}
+
+.app-main .canvas-tab {
+  flex: 1;
+  min-height: 0;
+}

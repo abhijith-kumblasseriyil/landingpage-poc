@@ -1,0 +1,6 @@
+[
+  { "id": "wash", "name": "Car Wash" },
+  { "id": "detail", "name": "Car Detailing" },
+  { "id": "oil", "name": "Oil Change" },
+  { "id": "tire", "name": "Tire Service" }
+]

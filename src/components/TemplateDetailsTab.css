@@ -1,0 +1,44 @@
+.template-details-tab {
+  max-width: 560px;
+  padding: 2rem;
+}
+
+.template-details-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+}
+
+.template-details-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.template-details-form .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.template-details-form .form-row label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.template-details-form .form-row input,
+.template-details-form .form-row select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.template-details-form .form-row input:focus,
+.template-details-form .form-row select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}

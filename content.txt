@@ -1,0 +1,302 @@
+React Vite Drag-and-Drop Page Builder (PoC)
+Objective
+
+Build a proof-of-concept drag-and-drop page builder using React JS (JavaScript only, no TypeScript) and Vite, capable of:
+
+Loading from JSON (or starting blank)
+
+Allowing visual page construction using templates
+
+Supporting step-based or multi-page flows
+
+Generating structured JSON output that fully represents the built page(s)
+
+This is a frontend-only PoC. Database calls should be simulated using static JSON files.
+
+Technology Constraints
+
+React JS (JavaScript, not TypeScript)
+
+Vite
+
+Functional components + hooks
+
+No backend
+
+No authentication
+
+No CSS frameworks required (plain CSS acceptable)
+
+Drag-and-drop library allowed (recommended: @dnd-kit/core)
+
+Core Functional Requirements
+1️⃣ Drag-and-Drop Page Builder
+Page Initialization
+
+The application should allow:
+
+Starting with a blank page
+
+OR loading an existing JSON schema
+
+JSON input can be pasted or selected from a predefined sample file
+
+Drag-and-Drop Behavior
+
+Users can drag components from a Component Palette into a Page Canvas
+
+Components must be dropped only into valid drop zones
+
+Components should be reorderable within the same page/section
+
+2️⃣ JSON Output Generation
+
+The page builder must generate a single JSON output
+
+JSON output should reflect:
+
+Template type
+
+Pages/steps
+
+Components per page
+
+Component configuration (props/settings)
+
+Display JSON output in a readable panel (right side or modal)
+
+3️⃣ Template-Driven Architecture (JSON-Based)
+Templates Must Be Defined in JSON
+
+Each template should include:
+
+Template type (step-flow, multi-page)
+
+Allowed components
+
+Page behavior rules
+
+Navigation rules
+
+Example Template Structure
+{
+  "templateId": "step-form",
+  "templateType": "step-by-step",
+  "maxSteps": 5,
+  "allowedComponents": [
+    "Text",
+    "Image",
+    "Input",
+    "Select",
+    "Checkbox",
+    "Radio",
+    "Textarea",
+    "Button"
+  ],
+  "navigation": {
+    "next": true,
+    "previous": true
+  }
+}
+
+
+Templates must be:
+
+Read from JSON
+
+Easily replaceable (simulating DB-driven templates)
+
+4️⃣ Multi-Page / Step-by-Step Flow
+Page Types
+
+Step-by-step flow
+
+Sequential pages
+
+“Next” and “Previous” navigation
+
+Multi-page flow
+
+Independent pages
+
+Ability to add/remove pages
+
+Behavior
+
+After completing one page:
+
+Show “Add Next Page” button
+
+Page type logic should come from template JSON
+
+Pages must be stored as an array in the output JSON
+
+5️⃣ Component Palette (Template-Driven)
+Left Panel – Component List
+
+Component list should be generated dynamically from template JSON
+
+Disabled components should not be draggable
+
+Required Components
+
+Text / Label
+
+Image
+
+URL input
+
+File upload (store base64 or filename)
+
+Input (text)
+
+Textarea
+
+Select (dropdown)
+
+Checkbox
+
+Radio
+
+Button
+
+6️⃣ Component Settings (Gear Icon)
+Component Configuration
+
+Each component placed on the canvas must show:
+
+A gear/settings icon
+
+A delete icon
+
+Clicking Settings Icon Opens:
+
+A configuration panel/modal
+
+Editable properties depending on component type
+
+Example Component Settings
+Input Component
+{
+  "label": "Email",
+  "placeholder": "Enter email",
+  "required": true
+}
+
+Select Component
+{
+  "label": "Location",
+  "dataSource": "locations",
+  "required": true
+}
+
+7️⃣ Dropdowns Populated from “Database” (JSON)
+Simulated Database
+
+Create JSON files such as:
+
+// locations.json
+[
+  { "id": 1, "name": "New York" },
+  { "id": 2, "name": "London" }
+]
+
+// services.json
+[
+  { "id": "wash", "name": "Car Wash" },
+  { "id": "detail", "name": "Car Detailing" }
+]
+
+Select Component Behavior
+
+Dropdown options are loaded dynamically based on:
+
+dataSource field
+
+Data source must be selectable in component settings
+
+8️⃣ Page Schema Output (Final JSON)
+Example Output
+{
+  "template": "step-form",
+  "pages": [
+    {
+      "pageId": 1,
+      "components": [
+        {
+          "type": "Input",
+          "props": {
+            "label": "Name",
+            "required": true
+          }
+        },
+        {
+          "type": "Select",
+          "props": {
+            "label": "Location",
+            "dataSource": "locations"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+
+This JSON should:
+
+Be deterministic
+
+Fully reconstruct the page if reloaded
+
+9️⃣ UI Layout (Suggested)
+---------------------------------------------------
+| Component Palette | Page Canvas | Settings |
+---------------------------------------------------
+| JSON Viewer / Export Panel                    |
+---------------------------------------------------
+
+
+Palette: Left
+
+Canvas: Center
+
+Settings: Right
+
+JSON output: Bottom or modal
+
+1️⃣0️⃣ Non-Goals (Do NOT Implement)
+
+No backend
+
+No authentication
+
+No permissions
+
+No drag resizing
+
+No custom CSS editor
+
+No animations
+
+No workflow rules
+
+1️⃣1️⃣ Deliverables
+
+Vite + React JS app
+
+JSON-driven templates
+
+Drag-and-drop page builder
+
+Component settings modal
+
+JSON input/output support
+
+Sample JSON files simulating DB data
+
+Key Design Principle (Do Not Violate)
+
+Templates control what is allowed
+Components control behavior
+JSON is the single source of truth

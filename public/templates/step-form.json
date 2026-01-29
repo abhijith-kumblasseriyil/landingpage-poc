@@ -1,0 +1,22 @@
+{
+  "templateId": "step-form",
+  "templateType": "step-by-step",
+  "maxSteps": 5,
+  "allowedComponents": [
+    "Text",
+    "Image",
+    "Input",
+    "Select",
+    "Checkbox",
+    "Radio",
+    "Textarea",
+    "Button",
+    "OneColumn",
+    "TwoColumn",
+    "HR"
+  ],
+  "navigation": {
+    "next": true,
+    "previous": true
+  }
+}

@@ -1,0 +1,65 @@
+.component-palette {
+  width: 220px;
+  background: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.palette-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.palette-section {
+  margin-bottom: 1.25rem;
+}
+
+.palette-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.35rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: grab;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.palette-item:active {
+  cursor: grabbing;
+}
+
+.palette-item-dragging {
+  opacity: 0.6;
+  border-color: #3b82f6;
+}
+
+.palette-item-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.palette-item-icon {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.palette-item-label {
+  flex: 1;
+}

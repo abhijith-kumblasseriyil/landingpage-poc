@@ -1,0 +1,24 @@
+{
+  "templateId": "multi-page",
+  "templateType": "multi-page",
+  "maxPages": 10,
+  "allowedComponents": [
+    "Text",
+    "Image",
+    "Input",
+    "Select",
+    "Checkbox",
+    "Radio",
+    "Textarea",
+    "Button",
+    "FileUpload",
+    "UrlInput",
+    "OneColumn",
+    "TwoColumn",
+    "HR"
+  ],
+  "navigation": {
+    "next": true,
+    "previous": true
+  }
+}
