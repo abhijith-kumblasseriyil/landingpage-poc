@@ -1,0 +1,116 @@
+.intro-tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.intro-tour-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.intro-tour-modal {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.intro-tour-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.intro-tour-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.intro-tour-skip {
+  padding: 0.35rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 0.9rem;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.intro-tour-skip:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.intro-tour-body {
+  padding: 1.5rem;
+}
+
+.intro-tour-content {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.intro-tour-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.intro-tour-progress {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.intro-tour-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.intro-tour-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.intro-tour-back {
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #475569;
+}
+
+.intro-tour-back:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.intro-tour-next {
+  border: none;
+  background: #3b82f6;
+  color: #fff;
+}
+
+.intro-tour-next:hover {
+  background: #2563eb;
+}

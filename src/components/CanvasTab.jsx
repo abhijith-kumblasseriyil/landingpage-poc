@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { DndContext } from '@dnd-kit/core'
 import { useSensors, useSensor, PointerSensor } from '@dnd-kit/core'
 import { useBuilder } from '../context/BuilderContext'
@@ -146,6 +146,14 @@ function CanvasTab() {
   }, [currentPageIndex, pages, allowedComponents, addComponent, reorderComponents, moveComponent, findNodeLocation, getNodeById, generateId])
 
   const outputSchema = getOutputSchema()
+  const schemaStr = JSON.stringify(outputSchema)
+
+  // Test: persist current schema to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('landing-page-designer-schema', schemaStr)
+    } catch (_) {}
+  }, [schemaStr])
 
   return (
     <div className="canvas-tab">

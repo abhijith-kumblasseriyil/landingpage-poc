@@ -81,3 +81,18 @@
   color: #64748b;
   text-align: center;
 }
+
+.app-footer-tour-link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: inherit;
+  color: #3b82f6;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.app-footer-tour-link:hover {
+  color: #2563eb;
+}

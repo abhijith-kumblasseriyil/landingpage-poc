@@ -234,8 +234,53 @@ const defaultState = {
   currentPageIndex: 0
 }
 
+function stateFromStoredSchema(raw) {
+  try {
+    const data = typeof raw === 'string' ? JSON.parse(raw) : raw
+    if (!data || !(data.pages?.length || data.template != null)) return null
+    const parseNodes = (list) => (list || []).map((c) => {
+      const id = `id_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
+      const node = { id, type: c.type, props: c.props || {} }
+      if (c.columns) node.slots = c.columns.map(col => parseNodes(col))
+      return node
+    })
+    const pages = (data.pages || []).map((p, i) => ({
+      id: p.pageId || generateId(),
+      name: p.name || `Page ${i + 1}`,
+      components: parseNodes(p.components || [])
+    }))
+    if (!pages.length) return null
+    return {
+      ...initialTemplate,
+      name: data.name ?? '',
+      templateId: data.template ?? initialTemplate.templateId,
+      templateType: data.templateType ?? initialTemplate.templateType,
+      formName: data.formName ?? '',
+      formId: data.formId ?? '',
+      logoUrl: data.logoUrl ?? '',
+      logoAlt: data.logoAlt ?? 'Logo',
+      pages,
+      currentPageIndex: 0
+    }
+  } catch (_) {
+    return null
+  }
+}
+
+const STORAGE_SCHEMA_KEY = 'landing-page-designer-schema'
+
+function getInitialState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_SCHEMA_KEY)
+    const loaded = raw ? stateFromStoredSchema(raw) : null
+    return loaded || defaultState
+  } catch (_) {
+    return defaultState
+  }
+}
+
 export function BuilderProvider({ children }) {
-  const [state, dispatch] = useReducer(builderReducer, defaultState)
+  const [state, dispatch] = useReducer(builderReducer, undefined, getInitialState)
 
   const addPage = useCallback(() => dispatch({ type: 'ADD_PAGE' }), [])
   const removePage = useCallback((index) => dispatch({ type: 'REMOVE_PAGE', index }), [])
