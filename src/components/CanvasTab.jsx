@@ -191,17 +191,33 @@ function CanvasTab() {
           className="canvas-tab-preview-overlay"
           onClick={(e) => { if (e.target === e.currentTarget) setIsPreview(false) }}
         >
-          <div className="canvas-tab-preview-popup" onClick={(e) => e.stopPropagation()}>
-            <div className="canvas-tab-preview-header">
-              <span className="canvas-tab-preview-title">Preview</span>
+          <div className="canvas-tab-preview-popup canvas-tab-preview-browser" onClick={(e) => e.stopPropagation()}>
+            <div className="canvas-tab-preview-browser-titlebar">
+              <div className="canvas-tab-preview-browser-dots">
+                <span className="canvas-tab-preview-dot canvas-tab-preview-dot-close" />
+                <span className="canvas-tab-preview-dot canvas-tab-preview-dot-min" />
+                <span className="canvas-tab-preview-dot canvas-tab-preview-dot-max" />
+              </div>
+              <span className="canvas-tab-preview-browser-title">Preview</span>
               <button
                 type="button"
                 className="canvas-tab-preview-close"
                 onClick={() => setIsPreview(false)}
-                title="Exit preview"
+                title="Close preview"
               >
                 ×
               </button>
+            </div>
+            <div className="canvas-tab-preview-browser-toolbar">
+              <div className="canvas-tab-preview-browser-nav">
+                <span className="canvas-tab-preview-nav-btn" title="Back">‹</span>
+                <span className="canvas-tab-preview-nav-btn" title="Forward">›</span>
+                <span className="canvas-tab-preview-nav-btn" title="Refresh">↻</span>
+              </div>
+              <div className="canvas-tab-preview-browser-address">
+                <span className="canvas-tab-preview-address-icon">🔒</span>
+                <span className="canvas-tab-preview-address-url">about:preview</span>
+              </div>
             </div>
             <div className="canvas-tab-preview-content">
               <DndContext sensors={sensors} onDragEnd={() => {}}>
@@ -212,13 +228,25 @@ function CanvasTab() {
                 />
               </DndContext>
             </div>
+            <footer className="canvas-tab-preview-footer">
+              Landing page designer - POC - VNext
+            </footer>
           </div>
         </div>
       )}
 
       {showJson && (
-        <div className="canvas-tab-json">
-          <JsonViewer data={outputSchema} onLoad={loadSchema} />
+        <div
+          className="canvas-tab-json-overlay"
+          onClick={(e) => { if (e.target === e.currentTarget) setShowJson(false) }}
+        >
+          <div className="canvas-tab-json-popup" onClick={(e) => e.stopPropagation()}>
+            <div className="canvas-tab-json-popup-header">
+              <span>JSON Output</span>
+              <button type="button" className="canvas-tab-json-popup-close" onClick={() => setShowJson(false)} title="Close">×</button>
+            </div>
+            <JsonViewer data={outputSchema} onLoad={loadSchema} />
+          </div>
         </div>
       )}
 

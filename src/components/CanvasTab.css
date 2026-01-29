@@ -52,7 +52,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 1.5rem;
 }
 
 .canvas-tab-preview-popup {
@@ -65,6 +65,123 @@
   flex-direction: column;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+}
+
+.canvas-tab-preview-browser {
+  max-width: min(960px, 90vw);
+  max-height: 90vh;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+}
+
+.canvas-tab-preview-browser-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  background: #e2e8f0;
+  border-bottom: 1px solid #cbd5e1;
+  flex-shrink: 0;
+  border-radius: 10px 10px 0 0;
+}
+
+.canvas-tab-preview-browser-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.canvas-tab-preview-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.canvas-tab-preview-dot-close {
+  background: #f87171;
+}
+
+.canvas-tab-preview-dot-min {
+  background: #fbbf24;
+}
+
+.canvas-tab-preview-dot-max {
+  background: #4ade80;
+}
+
+.canvas-tab-preview-browser-title {
+  flex: 1;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #475569;
+  text-align: center;
+}
+
+.canvas-tab-preview-browser-titlebar .canvas-tab-preview-close {
+  width: 28px;
+  height: 28px;
+  font-size: 1.25rem;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.canvas-tab-preview-browser-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.canvas-tab-preview-browser-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.canvas-tab-preview-nav-btn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  font-size: 1rem;
+  color: #64748b;
+  line-height: 1;
+}
+
+.canvas-tab-preview-nav-btn:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.canvas-tab-preview-browser-address {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.canvas-tab-preview-address-icon {
+  font-size: 0.75rem;
+}
+
+.canvas-tab-preview-address-url {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .canvas-tab-preview-header {
@@ -106,6 +223,16 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
+}
+
+.canvas-tab-preview-footer {
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
 }
 
 .canvas-tab-preview-content .preview-navigation,
@@ -223,18 +350,69 @@
   flex-direction: column;
 }
 
-.canvas-tab-json {
-  flex-shrink: 0;
-  max-height: 320px;
-  border-top: 1px solid #e2e8f0;
+.canvas-tab-json-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1600;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.canvas-tab-json-popup {
+  width: 100%;
+  max-width: 720px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e2e;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
 
-.canvas-tab-json .json-viewer {
-  border-radius: 0;
-  max-height: 320px;
+.canvas-tab-json-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: #313244;
+  border-bottom: 1px solid #45475a;
+  flex-shrink: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #cdd6f4;
 }
 
-.canvas-tab-json .json-output {
-  max-height: 200px;
+.canvas-tab-json-popup-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #cdd6f4;
+  cursor: pointer;
+}
+
+.canvas-tab-json-popup-close:hover {
+  background: #45475a;
+  color: #fff;
+}
+
+.canvas-tab-json-popup .json-viewer {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.canvas-tab-json-popup .json-viewer .json-output {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
 }
