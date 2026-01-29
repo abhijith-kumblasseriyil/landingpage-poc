@@ -41,6 +41,17 @@
   background: #585b70;
 }
 
+.json-viewer-actions .json-viewer-btn-icon {
+  padding: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.json-viewer-actions .json-viewer-icon {
+  color: #cdd6f4;
+}
+
 .json-input-section {
   padding: 1rem;
   border-bottom: 1px solid #45475a;
@@ -76,4 +87,37 @@
   max-height: 280px;
   white-space: pre-wrap;
   word-break: break-all;
+}
+
+.json-output-fullscreen {
+  max-height: none;
+  flex: 1;
+  min-height: 0;
+}
+
+.json-viewer-fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.json-viewer-fullscreen {
+  width: 90%;
+  min-width: 400px;
+  max-width: 95vw;
+  height: 80vh;
+  min-height: 300px;
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  resize: both;
+  overflow: auto;
+  border-radius: 8px;
+  background: #1e1e2e;
 }

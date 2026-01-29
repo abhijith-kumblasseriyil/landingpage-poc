@@ -32,6 +32,9 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
   }
 
   const props = { ...getDefaultProps(node.type), ...node.props }
+  if (!meta.isLayout && props.color) {
+    props.style = { ...(props.style || {}), color: props.color }
+  }
   const isLayout = meta.isLayout
 
   const content = isLayout ? (
@@ -43,7 +46,12 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
       {...props}
     />
   ) : (
-    <meta.Component {...props} isPreview={isPreview} name={isPreview ? node.id : undefined} />
+    <meta.Component
+      {...props}
+      isPreview={isPreview}
+      name={isPreview ? (props.fieldName || node.id) : undefined}
+      id={isPreview ? node.id : undefined}
+    />
   )
 
   if (isPreview) {
@@ -65,7 +73,9 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
         <span className="canvas-node-drag" {...listeners} {...attributes}>⋮⋮</span>
         <span className="canvas-node-type">{node.type}</span>
         <div className="canvas-node-actions">
-          <button type="button" className="canvas-node-btn canvas-node-settings" onClick={(e) => { e.stopPropagation(); e.preventDefault(); onSettings(node); }} title="Settings">⚙</button>
+          {!isLayout && (
+            <button type="button" className="canvas-node-btn canvas-node-settings" onClick={(e) => { e.stopPropagation(); e.preventDefault(); onSettings(node); }} title="Settings">⚙</button>
+          )}
           <button type="button" className="canvas-node-btn canvas-node-delete" onClick={(e) => { e.stopPropagation(); e.preventDefault(); setShowDeleteConfirm(true); }} title="Delete">✕</button>
         </div>
       </div>

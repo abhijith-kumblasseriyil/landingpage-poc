@@ -1,12 +1,14 @@
-function ImageComponent({ src = '', alt = 'Image' }) {
+function ImageComponent({ src = '', alt = 'Image', style: styleProp }) {
   if (!src) {
+    const style = {
+      padding: '2rem',
+      border: '2px dashed #ddd',
+      textAlign: 'center',
+      color: '#95a5a6',
+      ...styleProp
+    }
     return (
-      <div style={{
-        padding: '2rem',
-        border: '2px dashed #ddd',
-        textAlign: 'center',
-        color: '#95a5a6'
-      }}>
+      <div style={style}>
         No image source
       </div>
     )
@@ -16,7 +18,7 @@ function ImageComponent({ src = '', alt = 'Image' }) {
     <img
       src={src}
       alt={alt}
-      style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
+      style={{ maxWidth: '100%', height: 'auto', display: 'block', ...styleProp }}
     />
   )
 }

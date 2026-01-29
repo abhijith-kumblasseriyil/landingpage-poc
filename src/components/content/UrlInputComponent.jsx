@@ -1,9 +1,13 @@
-function UrlInputComponent({ label = 'URL', placeholder = 'https://', isPreview = false }) {
+function UrlInputComponent({ label = 'URL', placeholder = 'https://', isPreview = false, name, id, style: styleProp }) {
+  const style = { marginBottom: '1rem', ...styleProp }
+  const inputId = id || name
   return (
-    <div className="content-url-input" style={{ marginBottom: '1rem' }}>
-      {label && <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{label}</label>}
+    <div className="content-url-input" style={style}>
+      {label && <label htmlFor={inputId} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{label}</label>}
       <input
         type="url"
+        id={inputId}
+        name={name}
         placeholder={placeholder}
         disabled={!isPreview}
         readOnly={!isPreview}

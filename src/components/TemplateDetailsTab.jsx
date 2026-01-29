@@ -8,6 +8,10 @@ function TemplateDetailsTab() {
     templateType,
     maxSteps,
     maxPages,
+    formName,
+    formId,
+    logoUrl,
+    logoAlt,
     setTemplateDetails
   } = useBuilder()
 
@@ -31,6 +35,42 @@ function TemplateDetailsTab() {
             value={templateId}
             onChange={(e) => setTemplateDetails({ templateId: e.target.value })}
             placeholder="e.g. step-form"
+          />
+        </div>
+        <div className="form-row">
+          <label>Form name</label>
+          <input
+            type="text"
+            value={formName ?? ''}
+            onChange={(e) => setTemplateDetails({ formName: e.target.value })}
+            placeholder="e.g. landing-form"
+          />
+        </div>
+        <div className="form-row">
+          <label>Form ID</label>
+          <input
+            type="text"
+            value={formId ?? ''}
+            onChange={(e) => setTemplateDetails({ formId: e.target.value })}
+            placeholder="e.g. landing-form-id"
+          />
+        </div>
+        <div className="form-row">
+          <label>Template logo URL</label>
+          <input
+            type="url"
+            value={logoUrl ?? ''}
+            onChange={(e) => setTemplateDetails({ logoUrl: e.target.value })}
+            placeholder="https://example.com/logo.png"
+          />
+        </div>
+        <div className="form-row">
+          <label>Logo alt text</label>
+          <input
+            type="text"
+            value={logoAlt ?? 'Logo'}
+            onChange={(e) => setTemplateDetails({ logoAlt: e.target.value })}
+            placeholder="e.g. Company logo"
           />
         </div>
         <div className="form-row">

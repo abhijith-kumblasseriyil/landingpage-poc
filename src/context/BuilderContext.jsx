@@ -10,9 +10,13 @@ const initialTemplate = {
   templateType: 'step-by-step',
   maxSteps: 5,
   maxPages: 10,
+  formName: '',
+  formId: '',
+  logoUrl: '',
+  logoAlt: 'Logo',
   allowedComponents: [
     'Text', 'Image', 'Input', 'Select', 'Checkbox', 'Radio',
-    'Textarea', 'Button', 'FileUpload', 'UrlInput',
+    'Textarea', 'Button', 'FileUpload', 'UrlInput', 'Payment',
     'OneColumn', 'TwoColumn', 'ThreeColumn', 'HR'
   ],
   navigation: { next: true, previous: true }
@@ -45,18 +49,25 @@ function builderReducer(state, action) {
         name: payload.name ?? state.name,
         templateId: payload.template ?? state.templateId,
         templateType: payload.templateType ?? state.templateType,
+        formName: payload.formName ?? state.formName ?? '',
+        formId: payload.formId ?? state.formId ?? '',
+        logoUrl: payload.logoUrl ?? state.logoUrl ?? '',
+        logoAlt: payload.logoAlt ?? state.logoAlt ?? 'Logo',
         pages: pages.length ? pages : state.pages,
         currentPageIndex: 0
       }
     }
-    case 'ADD_PAGE':
+    case 'ADD_PAGE': {
+      const newPageIndex = state.pages.length
       return {
         ...state,
         pages: [
           ...state.pages,
           { id: generateId(), name: `Page ${state.pages.length + 1}`, components: [] }
-        ]
+        ],
+        currentPageIndex: newPageIndex
       }
+    }
     case 'REMOVE_PAGE': {
       const newPages = state.pages
         .filter((_, i) => i !== action.index)
@@ -259,6 +270,10 @@ export function BuilderProvider({ children }) {
       template: state.templateId,
       templateType: state.templateType,
       name: state.name,
+      formName: state.formName || undefined,
+      formId: state.formId || undefined,
+      logoUrl: state.logoUrl || undefined,
+      logoAlt: state.logoAlt || undefined,
       pages: state.pages.map(p => ({
         pageId: p.id,
         name: p.name,

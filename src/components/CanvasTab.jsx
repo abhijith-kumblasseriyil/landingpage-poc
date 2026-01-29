@@ -121,8 +121,10 @@ function CanvasTab() {
         node.slots = Array.from({ length: numCols }, () => [])
       }
       addComponent(targetPageIndex, targetSlotKey, targetIndex, node)
-      setSettingsNode(node)
-      setSettingsPageIndex(targetPageIndex)
+      if (!meta.isLayout) {
+        setSettingsNode(node)
+        setSettingsPageIndex(targetPageIndex)
+      }
       return
     }
 
@@ -176,25 +178,43 @@ function CanvasTab() {
       </div>
 
       <div className="canvas-tab-main">
-        {!isPreview ? (
-          <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-            <ComponentPalette allowedComponents={allowedComponents} />
-            <div className="canvas-tab-canvas-wrap">
-              <PageCanvas isPreview={false} onSettings={handleSettings} />
-            </div>
-          </DndContext>
-        ) : (
-          <DndContext sensors={sensors} onDragEnd={() => {}}>
-            <div className="canvas-tab-canvas-wrap canvas-tab-preview-wrap">
-              <PreviewNavigation
-                pages={pages}
-                templateType={templateType}
-                onSettings={handleSettings}
-              />
-            </div>
-          </DndContext>
-        )}
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+          <ComponentPalette allowedComponents={allowedComponents} />
+          <div className="canvas-tab-canvas-wrap">
+            <PageCanvas isPreview={false} onSettings={handleSettings} />
+          </div>
+        </DndContext>
       </div>
+
+      {isPreview && (
+        <div
+          className="canvas-tab-preview-overlay"
+          onClick={(e) => { if (e.target === e.currentTarget) setIsPreview(false) }}
+        >
+          <div className="canvas-tab-preview-popup" onClick={(e) => e.stopPropagation()}>
+            <div className="canvas-tab-preview-header">
+              <span className="canvas-tab-preview-title">Preview</span>
+              <button
+                type="button"
+                className="canvas-tab-preview-close"
+                onClick={() => setIsPreview(false)}
+                title="Exit preview"
+              >
+                ×
+              </button>
+            </div>
+            <div className="canvas-tab-preview-content">
+              <DndContext sensors={sensors} onDragEnd={() => {}}>
+                <PreviewNavigation
+                  pages={pages}
+                  templateType={templateType}
+                  onSettings={handleSettings}
+                />
+              </DndContext>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showJson && (
         <div className="canvas-tab-json">

@@ -20,12 +20,25 @@ export function PreviewProvider({ children, goNext, goPrev, previewPageIndex, to
     return formRef.current.checkValidity()
   }, [])
 
+  const getFormData = useCallback(() => {
+    if (!formRef.current) return null
+    const form = formRef.current
+    const fd = new FormData(form)
+    const body = {}
+    for (const [name, value] of fd.entries()) {
+      const str = value instanceof File ? value.name : String(value ?? '')
+      body[name] = body[name] !== undefined ? `${body[name]},${str}` : str
+    }
+    return body
+  }, [])
+
   const value = {
     goNext,
     goPrev,
     setFormRef,
     validateCurrentPage,
     reportValidity,
+    getFormData,
     previewPageIndex,
     totalPages
   }

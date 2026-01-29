@@ -1,8 +1,11 @@
-function TextareaComponent({ label = 'Textarea', placeholder = '', required = false, rows = 3, isPreview = false, name }) {
+function TextareaComponent({ label = 'Textarea', placeholder = '', required = false, rows = 3, isPreview = false, name, id, style: styleProp }) {
+  const style = { marginBottom: '1rem', ...styleProp }
+  const textareaId = id || name
   return (
-    <div className="content-textarea" style={{ marginBottom: '1rem' }}>
-      {label && <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{label}{required && ' *'}</label>}
+    <div className="content-textarea" style={style}>
+      {label && <label htmlFor={textareaId} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{label}{required && ' *'}</label>}
       <textarea
+        id={textareaId}
         name={name}
         placeholder={placeholder}
         required={required}

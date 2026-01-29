@@ -1,11 +1,15 @@
-function FileUploadComponent({ label = 'Upload File', accept = '*', isPreview = false }) {
+function FileUploadComponent({ label = 'Upload File', accept = '*', isPreview = false, name, id, style: styleProp }) {
+  const style = { marginBottom: '1rem', ...styleProp }
+  const inputId = id || name
   return (
-    <div style={{ marginBottom: '1rem' }}>
-      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
+    <div style={style}>
+      <label htmlFor={inputId} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
         {label}
       </label>
       <input
         type="file"
+        id={inputId}
+        name={name}
         accept={accept}
         disabled={!isPreview}
         style={{

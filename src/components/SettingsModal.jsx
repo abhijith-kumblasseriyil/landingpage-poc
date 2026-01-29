@@ -12,7 +12,7 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
     if (node) setProps({ ...node.props })
   }, [node])
 
-  if (!node || !meta) return null
+  if (!node || !meta || meta.isLayout) return null
 
   const handleChange = (key, value) => {
     setProps((p) => ({ ...p, [key]: value }))
@@ -48,8 +48,31 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
       return (
         <>
           <div className="settings-field">
+            <label>Field name (API payload key)</label>
+            <input type="text" value={props.fieldName ?? ''} onChange={(e) => handleChange('fieldName', e.target.value)} placeholder="e.g. emailAddress" />
+          </div>
+          <div className="settings-field">
             <label>Label</label>
             <input type="text" value={props.label ?? ''} onChange={(e) => handleChange('label', e.target.value)} />
+          </div>
+          <div className="settings-field">
+            <label>Input type</label>
+            <select value={props.type ?? 'text'} onChange={(e) => handleChange('type', e.target.value)}>
+              <option value="text">Text</option>
+              <option value="password">Password</option>
+              <option value="email">Email</option>
+              <option value="number">Number</option>
+              <option value="tel">Tel</option>
+              <option value="url">URL</option>
+              <option value="search">Search</option>
+              <option value="date">Date</option>
+              <option value="time">Time</option>
+              <option value="datetime-local">Date & time (local)</option>
+              <option value="month">Month</option>
+              <option value="week">Week</option>
+              <option value="color">Color</option>
+              <option value="range">Range</option>
+            </select>
           </div>
           <div className="settings-field">
             <label>Placeholder</label>
@@ -64,6 +87,10 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
     if (type === 'Select') {
       return (
         <>
+          <div className="settings-field">
+            <label>Field name (API payload key)</label>
+            <input type="text" value={props.fieldName ?? ''} onChange={(e) => handleChange('fieldName', e.target.value)} placeholder="e.g. country" />
+          </div>
           <div className="settings-field">
             <label>Label</label>
             <input type="text" value={props.label ?? ''} onChange={(e) => handleChange('label', e.target.value)} />
@@ -93,6 +120,10 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
     if (type === 'Textarea') {
       return (
         <>
+          <div className="settings-field">
+            <label>Field name (API payload key)</label>
+            <input type="text" value={props.fieldName ?? ''} onChange={(e) => handleChange('fieldName', e.target.value)} placeholder="e.g. message" />
+          </div>
           <div className="settings-field">
             <label>Label</label>
             <input type="text" value={props.label ?? ''} onChange={(e) => handleChange('label', e.target.value)} />
@@ -160,6 +191,9 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
               <div className="settings-field">
                 <label><input type="checkbox" checked={!!props.validateBeforeAction} onChange={(e) => handleChange('validateBeforeAction', e.target.checked)} /> Validate form before API call</label>
               </div>
+              <div className="settings-field">
+                <label><input type="checkbox" checked={!!props.apiIncludeFormData} onChange={(e) => handleChange('apiIncludeFormData', e.target.checked)} /> Include current page/screen form data in request body</label>
+              </div>
             </>
           )}
           {props.actionType === 'custom' && (
@@ -189,6 +223,10 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
       return (
         <>
           <div className="settings-field">
+            <label>Field name (API payload key)</label>
+            <input type="text" value={props.fieldName ?? ''} onChange={(e) => handleChange('fieldName', e.target.value)} placeholder="e.g. acceptTerms" />
+          </div>
+          <div className="settings-field">
             <label>Label</label>
             <input type="text" value={props.label ?? ''} onChange={(e) => handleChange('label', e.target.value)} />
           </div>
@@ -201,6 +239,10 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
     if (type === 'Radio') {
       return (
         <>
+          <div className="settings-field">
+            <label>Field name (API payload key)</label>
+            <input type="text" value={props.fieldName ?? ''} onChange={(e) => handleChange('fieldName', e.target.value)} placeholder="e.g. preferredContact" />
+          </div>
           <div className="settings-field">
             <label>Label</label>
             <input type="text" value={props.label ?? ''} onChange={(e) => handleChange('label', e.target.value)} />
@@ -230,12 +272,51 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
         </div>
       )
     }
+    if (type === 'Payment') {
+      return (
+        <>
+          <div className="settings-field">
+            <label>Field name prefix (API payload keys: prefix_cardNumber, prefix_expiry, etc.)</label>
+            <input type="text" value={props.fieldName ?? ''} onChange={(e) => handleChange('fieldName', e.target.value)} placeholder="e.g. payment" />
+          </div>
+          <div className="settings-field">
+            <label>Section label</label>
+            <input type="text" value={props.label ?? 'Payment details'} onChange={(e) => handleChange('label', e.target.value)} />
+          </div>
+          <div className="settings-field">
+            <label>Card number placeholder</label>
+            <input type="text" value={props.cardNumberPlaceholder ?? ''} onChange={(e) => handleChange('cardNumberPlaceholder', e.target.value)} />
+          </div>
+          <div className="settings-field">
+            <label>Expiry placeholder</label>
+            <input type="text" value={props.expiryPlaceholder ?? ''} onChange={(e) => handleChange('expiryPlaceholder', e.target.value)} />
+          </div>
+          <div className="settings-field">
+            <label>CVV placeholder</label>
+            <input type="text" value={props.cvvPlaceholder ?? ''} onChange={(e) => handleChange('cvvPlaceholder', e.target.value)} />
+          </div>
+          <div className="settings-field">
+            <label>Cardholder name placeholder</label>
+            <input type="text" value={props.cardholderPlaceholder ?? ''} onChange={(e) => handleChange('cardholderPlaceholder', e.target.value)} />
+          </div>
+          <div className="settings-field">
+            <label><input type="checkbox" checked={!!props.required} onChange={(e) => handleChange('required', e.target.checked)} /> Required</label>
+          </div>
+        </>
+      )
+    }
     if (type === 'FileUpload' || type === 'UrlInput') {
       return (
-        <div className="settings-field">
-          <label>Label</label>
-          <input type="text" value={props.label ?? ''} onChange={(e) => handleChange('label', e.target.value)} />
-        </div>
+        <>
+          <div className="settings-field">
+            <label>Field name (API payload key)</label>
+            <input type="text" value={props.fieldName ?? ''} onChange={(e) => handleChange('fieldName', e.target.value)} placeholder={type === 'UrlInput' ? 'e.g. websiteUrl' : 'e.g. attachment'} />
+          </div>
+          <div className="settings-field">
+            <label>Label</label>
+            <input type="text" value={props.label ?? ''} onChange={(e) => handleChange('label', e.target.value)} />
+          </div>
+        </>
       )
     }
     return <p className="settings-no-fields">No settings for this component.</p>
@@ -250,6 +331,25 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
         </div>
         <form onSubmit={handleSubmit} className="settings-modal-form">
           {renderField()}
+          <div className="settings-field settings-field-color">
+            <label>Color</label>
+            <div className="settings-color-row">
+              <input
+                type="color"
+                value={props.color || '#000000'}
+                onChange={(e) => handleChange('color', e.target.value)}
+                className="settings-color-picker"
+                title="Pick color"
+              />
+              <input
+                type="text"
+                value={props.color ?? ''}
+                onChange={(e) => handleChange('color', e.target.value)}
+                placeholder="#000000"
+                className="settings-color-hex"
+              />
+            </div>
+          </div>
           <div className="settings-modal-actions">
             <button type="button" onClick={onClose}>Cancel</button>
             <button type="submit">Save</button>

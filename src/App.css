@@ -9,10 +9,7 @@
 .app-header {
   flex-shrink: 0;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 2rem;
-  padding: 0.75rem 1.5rem;
+  flex-direction: column;
   background: #fff;
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -23,33 +20,38 @@
   font-weight: 700;
   color: #1e293b;
   margin: 0;
+  padding: 0.75rem 1.5rem;
 }
 
 .app-tabs {
   display: flex;
-  gap: 0.25rem;
-  margin-left: 0;
+  width: 100%;
+  flex: 1;
 }
 
 .app-tab {
-  padding: 0.5rem 1rem;
+  flex: 1;
+  padding: 0.75rem 1rem;
   border: none;
-  border-radius: 6px;
-  background: transparent;
+  border-radius: 0;
+  background: #f1f5f9;
   font-size: 0.95rem;
   font-weight: 500;
   color: #64748b;
   cursor: pointer;
+  border-bottom: 3px solid transparent;
 }
 
 .app-tab:hover {
-  background: #f1f5f9;
+  background: #e2e8f0;
   color: #334155;
 }
 
 .app-tab.active {
-  background: #3b82f6;
-  color: #fff;
+  background: #fff;
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+  font-weight: 600;
 }
 
 .app-main {
@@ -68,4 +70,14 @@
 .app-main .canvas-tab {
   flex: 1;
   min-height: 0;
+}
+
+.app-footer {
+  flex-shrink: 0;
+  padding: 0.5rem 1.5rem;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: center;
 }

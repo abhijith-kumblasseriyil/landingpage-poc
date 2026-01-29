@@ -19,7 +19,9 @@ function PageCanvas({ isPreview, onSettings, previewPageIndex }) {
   const {
     pages,
     currentPageIndex,
-    removeComponent
+    removeComponent,
+    formName,
+    formId
   } = useBuilder()
   const previewContext = usePreview()
 
@@ -82,6 +84,8 @@ function PageCanvas({ isPreview, onSettings, previewPageIndex }) {
           onSubmit={(e) => e.preventDefault()}
           className="preview-form canvas-root-slot"
           noValidate
+          name={formName || undefined}
+          id={formId || undefined}
         >
           {components.map((node) => (
             <CanvasNode

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-function SelectComponent({ label = 'Select', dataSource = '', required = false, options: staticOptions, isPreview = false, multiselect = false, name }) {
+function SelectComponent({ label = 'Select', dataSource = '', required = false, options: staticOptions, isPreview = false, multiselect = false, name, id, style: styleProp }) {
   const [options, setOptions] = useState(staticOptions || [])
   const [value, setValue] = useState(multiselect ? [] : '')
 
@@ -27,10 +27,13 @@ function SelectComponent({ label = 'Select', dataSource = '', required = false, 
     }
   }
 
+  const style = { marginBottom: '1rem', ...styleProp }
+  const selectId = id || name
   return (
-    <div className="content-select" style={{ marginBottom: '1rem' }}>
-      {label && <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{label}{required && ' *'}</label>}
+    <div className="content-select" style={style}>
+      {label && <label htmlFor={selectId} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{label}{required && ' *'}</label>}
       <select
+        id={selectId}
         name={name}
         multiple={multiselect}
         required={required && !multiselect}

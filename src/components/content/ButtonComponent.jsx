@@ -3,12 +3,15 @@ import { usePreview } from '../../context/PreviewContext'
 function ButtonComponent({
   label = 'Button',
   variant = 'primary',
+  color: colorProp,
   isPreview = false,
   actionType = 'none',
   apiUrl = '',
   apiMethod = 'POST',
+  apiIncludeFormData = false,
   customAction = '',
-  validateBeforeAction = true
+  validateBeforeAction = true,
+  style: styleProp
 }) {
   const preview = usePreview()
 
@@ -20,7 +23,8 @@ function ButtonComponent({
     fontWeight: 500,
     cursor: isPreview ? 'pointer' : 'default',
     backgroundColor: variant === 'primary' ? '#3498db' : '#fff',
-    color: variant === 'primary' ? '#fff' : '#3498db'
+    color: (colorProp ?? styleProp?.color) || (variant === 'primary' ? '#fff' : '#3498db'),
+    ...styleProp
   }
 
   const handleClick = async () => {
@@ -45,7 +49,17 @@ function ButtonComponent({
       case 'api':
         if (apiUrl) {
           try {
-            const res = await fetch(apiUrl, { method: apiMethod || 'POST' })
+            const method = apiMethod || 'POST'
+            const opts = { method }
+            const includeBody = apiIncludeFormData && method !== 'GET' && preview.getFormData
+            if (includeBody) {
+              const body = preview.getFormData()
+              if (body && Object.keys(body).length > 0) {
+                opts.headers = { 'Content-Type': 'application/json' }
+                opts.body = JSON.stringify(body)
+              }
+            }
+            const res = await fetch(apiUrl, opts)
             if (preview.onApiComplete) preview.onApiComplete(res)
           } catch (err) {
             if (preview.onApiError) preview.onApiError(err)

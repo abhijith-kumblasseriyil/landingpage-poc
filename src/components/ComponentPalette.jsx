@@ -36,7 +36,7 @@ function DraggablePaletteItem({ type, allowed }) {
 function ComponentPalette({ allowedComponents }) {
   const allowedSet = new Set(allowedComponents || [])
 
-  const contentTypes = ['Text', 'Input', 'Select', 'Textarea', 'Checkbox', 'Radio', 'Button', 'UrlInput', 'Image', 'FileUpload', 'HR']
+  const contentTypes = ['Text', 'Input', 'Select', 'Textarea', 'Checkbox', 'Radio', 'Button', 'UrlInput', 'Image', 'FileUpload', 'Payment', 'HR']
   const layoutTypes = ['OneColumn', 'TwoColumn', 'ThreeColumn']
 
   return (

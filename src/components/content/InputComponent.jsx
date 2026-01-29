@@ -1,9 +1,12 @@
-function InputComponent({ label = 'Input', placeholder = '', required = false, type = 'text', isPreview = false, name }) {
+function InputComponent({ label = 'Input', placeholder = '', required = false, type = 'text', isPreview = false, name, id, style: styleProp }) {
+  const style = { marginBottom: '1rem', ...styleProp }
+  const inputId = id || name
   return (
-    <div className="content-input" style={{ marginBottom: '1rem' }}>
-      {label && <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{label}{required && ' *'}</label>}
+    <div className="content-input" style={style}>
+      {label && <label htmlFor={inputId} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{label}{required && ' *'}</label>}
       <input
         type={type}
+        id={inputId}
         name={name}
         placeholder={placeholder}
         required={required}
