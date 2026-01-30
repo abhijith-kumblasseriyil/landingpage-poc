@@ -5,6 +5,16 @@ import { CSS } from '@dnd-kit/utilities'
 import { getComponent, getDefaultProps } from './componentRegistry'
 import './CanvasNode.css'
 
+const LAYOUT_DISPLAY_NAMES = {
+  OneColumn: '1 column',
+  TwoColumn: '2 column',
+  ThreeColumn: '3 column'
+}
+
+function getComponentDisplayName(type) {
+  return LAYOUT_DISPLAY_NAMES[type] ?? type
+}
+
 function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete, renderSlot }) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const meta = getComponent(node.type)
@@ -72,7 +82,7 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
     >
       <div className="canvas-node-header">
         <span className="canvas-node-drag" {...listeners} {...attributes}>⋮⋮</span>
-        <span className="canvas-node-type">{node.type}</span>
+        <span className="canvas-node-type">{getComponentDisplayName(node.type)}</span>
         <div className="canvas-node-actions">
           {!isLayout && node.type !== 'HR' && (
             <button type="button" className="canvas-node-btn canvas-node-settings" onClick={(e) => { e.stopPropagation(); e.preventDefault(); onSettings(node); }} title="Settings">⚙</button>
@@ -86,7 +96,7 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
       {showDeleteConfirm && createPortal(
         <div className="canvas-node-delete-overlay canvas-node-delete-overlay-portal" onClick={() => setShowDeleteConfirm(false)}>
           <div className="canvas-node-delete-dialog" onClick={(e) => e.stopPropagation()}>
-            <p className="canvas-node-delete-message">Delete this <strong>{node.type}</strong> component?</p>
+            <p className="canvas-node-delete-message">Delete this <strong>{getComponentDisplayName(node.type)}</strong> component?</p>
             <div className="canvas-node-delete-actions">
               <button type="button" className="canvas-node-delete-cancel" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
               <button type="button" className="canvas-node-delete-confirm" onClick={() => { onDelete(node.id); setShowDeleteConfirm(false); }}>Delete</button>

@@ -3,9 +3,9 @@ import { getComponent } from './componentRegistry'
 import './ComponentPalette.css'
 
 const LAYOUT_LABELS = {
-  OneColumn: '1 Column',
-  TwoColumn: '2 Columns',
-  ThreeColumn: '3 Columns',
+  OneColumn: '1 column',
+  TwoColumn: '2 column',
+  ThreeColumn: '3 column',
   HR: 'Divider'
 }
 
