@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { getComponent, getDefaultProps } from './componentRegistry'
@@ -82,16 +83,17 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
       <div className="canvas-node-body">
         {content}
       </div>
-      {showDeleteConfirm && (
-        <div className="canvas-node-delete-overlay" onClick={() => setShowDeleteConfirm(false)}>
+      {showDeleteConfirm && createPortal(
+        <div className="canvas-node-delete-overlay canvas-node-delete-overlay-portal" onClick={() => setShowDeleteConfirm(false)}>
           <div className="canvas-node-delete-dialog" onClick={(e) => e.stopPropagation()}>
-            <p className="canvas-node-delete-message">Delete this component?</p>
+            <p className="canvas-node-delete-message">Delete this <strong>{node.type}</strong> component?</p>
             <div className="canvas-node-delete-actions">
               <button type="button" className="canvas-node-delete-cancel" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
               <button type="button" className="canvas-node-delete-confirm" onClick={() => { onDelete(node.id); setShowDeleteConfirm(false); }}>Delete</button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )

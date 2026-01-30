@@ -144,6 +144,14 @@
   border-radius: 8px;
 }
 
+/* Portaled to body so popup is never clipped by container overflow */
+.canvas-node-delete-overlay-portal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  border-radius: 0;
+}
+
 .canvas-node-delete-dialog {
   background: #fff;
   padding: 1.25rem;
