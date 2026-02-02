@@ -351,6 +351,17 @@ function SettingsModal({ node, pageIndex, onSave, onClose }) {
               />
             </div>
           </div>
+          <div className="settings-field">
+            <label>Custom CSS</label>
+            <textarea
+              value={props.customCss ?? ''}
+              onChange={(e) => handleChange('customCss', e.target.value)}
+              placeholder="e.g. padding: 20px; border-radius: 8px;"
+              rows={4}
+              className="settings-css-input"
+            />
+            <small className="settings-field-hint">CSS styles will be scoped to this component</small>
+          </div>
           <div className="settings-modal-actions">
             <button type="button" onClick={onClose}>Close</button>
           </div>

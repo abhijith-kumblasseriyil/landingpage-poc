@@ -1,0 +1,251 @@
+{
+  "template": "step-form",
+  "templateType": "step-by-step",
+  "name": "Contact Form Landing Page",
+  "formName": "Contact Form",
+  "formId": "contact-form-001",
+  "logoUrl": "https://example.com/logo.png",
+  "logoAlt": "Company Logo",
+  "available_components": [
+    "Text",
+    "Input",
+    "Select",
+    "Textarea",
+    "Button",
+    "UrlInput",
+    "Image",
+    "FileUpload",
+    "Checkbox",
+    "Radio",
+    "Payment",
+    "HR",
+    "OneColumn",
+    "TwoColumn",
+    "ThreeColumn"
+  ],
+  "pages": [
+    {
+      "pageId": "page-1",
+      "name": "Page 1",
+      "components": [
+        {
+          "type": "Text",
+          "props": {
+            "content": "Welcome to Our Contact Form",
+            "tag": "heading",
+            "color": "#1e293b"
+          }
+        },
+        {
+          "type": "Text",
+          "props": {
+            "content": "Please fill out the form below to get in touch with us.",
+            "tag": "p",
+            "color": "#64748b"
+          }
+        },
+        {
+          "type": "HR",
+          "props": {}
+        },
+        {
+          "type": "TwoColumn",
+          "props": {
+            "ratio": "50-50"
+          },
+          "columns": [
+            [
+              {
+                "type": "Input",
+                "props": {
+                  "label": "First Name",
+                  "placeholder": "Enter your first name",
+                  "required": true,
+                  "type": "text",
+                  "fieldName": "firstName",
+                  "color": "#334155"
+                }
+              },
+              {
+                "type": "Input",
+                "props": {
+                  "label": "Last Name",
+                  "placeholder": "Enter your last name",
+                  "required": true,
+                  "type": "text",
+                  "fieldName": "lastName",
+                  "color": "#334155"
+                }
+              }
+            ],
+            [
+              {
+                "type": "Input",
+                "props": {
+                  "label": "Email Address",
+                  "placeholder": "your.email@example.com",
+                  "required": true,
+                  "type": "email",
+                  "fieldName": "emailAddress",
+                  "color": "#334155"
+                }
+              },
+              {
+                "type": "Input",
+                "props": {
+                  "label": "Phone Number",
+                  "placeholder": "+1 (555) 123-4567",
+                  "required": false,
+                  "type": "tel",
+                  "fieldName": "phoneNumber",
+                  "color": "#334155"
+                }
+              }
+            ]
+          ]
+        },
+        {
+          "type": "Select",
+          "props": {
+            "label": "Country",
+            "dataSource": "locations",
+            "required": true,
+            "multiselect": false,
+            "fieldName": "country",
+            "color": "#334155"
+          }
+        },
+        {
+          "type": "Textarea",
+          "props": {
+            "label": "Message",
+            "placeholder": "Tell us about your inquiry...",
+            "required": true,
+            "rows": 5,
+            "fieldName": "message",
+            "color": "#334155"
+          }
+        },
+        {
+          "type": "Checkbox",
+          "props": {
+            "label": "I agree to the terms and conditions",
+            "checked": false,
+            "fieldName": "acceptTerms",
+            "color": "#334155"
+          }
+        },
+        {
+          "type": "Button",
+          "props": {
+            "label": "Next",
+            "variant": "primary",
+            "actionType": "next",
+            "validateBeforeAction": true,
+            "color": "#ffffff"
+          }
+        }
+      ]
+    },
+    {
+      "pageId": "page-2",
+      "name": "Page 2",
+      "components": [
+        {
+          "type": "Text",
+          "props": {
+            "content": "Additional Information",
+            "tag": "heading",
+            "color": "#1e293b"
+          }
+        },
+        {
+          "type": "Image",
+          "props": {
+            "src": "https://example.com/image.jpg",
+            "alt": "Sample image"
+          }
+        },
+        {
+          "type": "ThreeColumn",
+          "props": {},
+          "columns": [
+            [
+              {
+                "type": "Radio",
+                "props": {
+                  "label": "Preferred Contact Method",
+                  "options": ["Email", "Phone", "SMS"],
+                  "fieldName": "preferredContact",
+                  "color": "#334155"
+                }
+              }
+            ],
+            [
+              {
+                "type": "FileUpload",
+                "props": {
+                  "label": "Upload Document",
+                  "accept": "*",
+                  "fieldName": "document",
+                  "color": "#334155"
+                }
+              }
+            ],
+            [
+              {
+                "type": "UrlInput",
+                "props": {
+                  "label": "Website URL",
+                  "placeholder": "https://example.com",
+                  "fieldName": "websiteUrl",
+                  "color": "#334155"
+                }
+              }
+            ]
+          ]
+        },
+        {
+          "type": "OneColumn",
+          "props": {},
+          "columns": [
+            [
+              {
+                "type": "Payment",
+                "props": {
+                  "label": "Payment Details",
+                  "fieldName": "payment",
+                  "cardNumberPlaceholder": "1234 5678 9012 3456",
+                  "expiryPlaceholder": "MM/YY",
+                  "cvvPlaceholder": "CVV",
+                  "cardholderPlaceholder": "Cardholder Name",
+                  "required": false,
+                  "color": "#334155"
+                }
+              }
+            ]
+          ]
+        },
+        {
+          "type": "Button",
+          "props": {
+            "label": "Previous",
+            "variant": "secondary",
+            "actionType": "previous",
+            "color": "#334155"
+          }
+        },
+        {
+          "type": "Button",
+          "props": {
+            "label": "Submit",
+            "variant": "primary",
+            "actionType": "submit",
+            "validateBeforeAction": true,
+            "color": "#ffffff"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { getComponent, getDefaultProps } from './componentRegistry'
 import './CanvasNode.css'
+
+function CustomCssInjector({ nodeId, customCss }) {
+  useEffect(() => {
+    if (!customCss) return
+    const styleId = `custom-css-${nodeId}`
+    let styleEl = document.getElementById(styleId)
+    if (!styleEl) {
+      styleEl = document.createElement('style')
+      styleEl.id = styleId
+      document.head.appendChild(styleEl)
+    }
+    // Scope CSS to this component using data attribute selector
+    styleEl.textContent = `[data-component-id="${nodeId}"] { ${customCss} }`
+    return () => {
+      const el = document.getElementById(styleId)
+      if (el) el.remove()
+    }
+  }, [nodeId, customCss])
+  return null
+}
 
 const LAYOUT_DISPLAY_NAMES = {
   OneColumn: '1 column',
@@ -47,8 +67,9 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
     props.style = { ...(props.style || {}), color: props.color }
   }
   const isLayout = meta.isLayout
+  const customCss = props.customCss
 
-  const content = isLayout ? (
+  const componentContent = isLayout ? (
     <meta.Component
       id={node.id}
       children={node.slots}
@@ -63,6 +84,17 @@ function CanvasNode({ node, pageIndex, slotKey, isPreview, onSettings, onDelete,
       name={isPreview ? (props.fieldName || node.id) : undefined}
       id={isPreview ? node.id : undefined}
     />
+  )
+
+  const content = customCss ? (
+    <>
+      <CustomCssInjector nodeId={node.id} customCss={customCss} />
+      <div data-component-id={node.id}>
+        {componentContent}
+      </div>
+    </>
+  ) : (
+    componentContent
   )
 
   if (isPreview) {
