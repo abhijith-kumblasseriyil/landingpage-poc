@@ -85,6 +85,11 @@ function builderReducer(state, action) {
         ...state,
         pages: state.pages.map((p, i) => i === action.index ? { ...p, name: action.name } : p)
       }
+    case 'UPDATE_PAGE':
+      return {
+        ...state,
+        pages: state.pages.map((p, i) => i === action.index ? { ...p, ...action.payload } : p)
+      }
     case 'ADD_COMPONENT': {
       const { pageIndex, slotKey, index, node } = action.payload
       const page = state.pages[pageIndex]
@@ -247,6 +252,7 @@ function stateFromStoredSchema(raw) {
     const pages = (data.pages || []).map((p, i) => ({
       id: p.pageId || generateId(),
       name: p.name || `Page ${i + 1}`,
+      customCss: p.customCss || undefined,
       components: parseNodes(p.components || [])
     }))
     if (!pages.length) return null
@@ -286,6 +292,7 @@ export function BuilderProvider({ children }) {
   const removePage = useCallback((index) => dispatch({ type: 'REMOVE_PAGE', index }), [])
   const setCurrentPage = useCallback((index) => dispatch({ type: 'SET_CURRENT_PAGE', index }), [])
   const renamePage = useCallback((index, name) => dispatch({ type: 'RENAME_PAGE', index, name }), [])
+  const updatePage = useCallback((index, payload) => dispatch({ type: 'UPDATE_PAGE', index, payload }), [])
   const setTemplateDetails = useCallback((payload) => dispatch({ type: 'SET_TEMPLATE_DETAILS', payload }), [])
   const loadSchema = useCallback((payload) => dispatch({ type: 'LOAD_SCHEMA', payload }), [])
 
@@ -322,6 +329,7 @@ export function BuilderProvider({ children }) {
       pages: state.pages.map(p => ({
         pageId: p.id,
         name: p.name,
+        customCss: p.customCss || undefined,
         components: serialize(p.components)
       }))
     }
@@ -370,6 +378,7 @@ export function BuilderProvider({ children }) {
     removePage,
     setCurrentPage,
     renamePage,
+    updatePage,
     setTemplateDetails,
     loadSchema,
     addComponent,

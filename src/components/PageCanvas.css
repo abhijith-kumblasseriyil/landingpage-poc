@@ -44,10 +44,16 @@
 .page-canvas-preview .canvas-root-slot,
 .page-canvas-preview .preview-form {
   border: none;
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+  border-image: none;
   min-height: auto;
   padding: 0;
   max-width: 960px;
   margin: 0 auto;
+  background: unset;
+  background-color: unset;
 }
 
 .preview-form.canvas-root-slot {

@@ -1,10 +1,39 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useEffect } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useBuilder } from '../context/BuilderContext'
 import { usePreview } from '../context/PreviewContext'
 import CanvasNode from './CanvasNode'
 import './PageCanvas.css'
+
+function PageCssInjector({ pageId, customCss }) {
+  useEffect(() => {
+    const styleId = `page-css-${pageId}`
+    let styleEl = document.getElementById(styleId)
+    
+    if (customCss) {
+      // Update or create style element with CSS
+      if (!styleEl) {
+        styleEl = document.createElement('style')
+        styleEl.id = styleId
+        document.head.appendChild(styleEl)
+      }
+      // Scope CSS to this page container and its form element
+      styleEl.textContent = `[data-page-id="${pageId}"] { ${customCss} }\n[data-page-id="${pageId}"] .preview-form { ${customCss} }`
+    } else if (customCss === '') {
+      // Only remove if CSS is explicitly cleared (empty string)
+      if (styleEl) {
+        styleEl.remove()
+      }
+    }
+    // If customCss is undefined/null, do nothing - let CSS persist when component unmounts
+    
+    // No cleanup on unmount - CSS persists when switching between preview/edit modes
+    // The style element will be reused or updated by other PageCanvas instances
+  }, [pageId, customCss])
+  
+  return null
+}
 
 function collectIds(list) {
   const ids = []
@@ -74,11 +103,14 @@ function PageCanvas({ isPreview, onSettings, previewPageIndex }) {
     )
   }
 
+  const pageCustomCss = page?.customCss
+
   if (isPreview) {
     const formRef = previewContext?.setFormRef
 
     return (
-      <div className="page-canvas page-canvas-preview">
+      <div className="page-canvas page-canvas-preview" data-page-id={page.id}>
+        <PageCssInjector pageId={page.id} customCss={pageCustomCss} />
         <form
           ref={formRef}
           onSubmit={(e) => e.preventDefault()}
@@ -105,7 +137,8 @@ function PageCanvas({ isPreview, onSettings, previewPageIndex }) {
   }
 
   return (
-    <div className="page-canvas">
+    <div className="page-canvas" data-page-id={page.id}>
+      <PageCssInjector pageId={page.id} customCss={pageCustomCss} />
       <RootDroppable />
     </div>
   )

@@ -22,6 +22,7 @@
   margin: 0.5rem 0;
   border: none;
   box-shadow: none;
+  background: transparent;
 }
 
 .canvas-node-header {
@@ -110,17 +111,23 @@
   margin: -0.35rem;
 }
 
+.canvas-node-preview .layout-one-column,
+.canvas-node-preview .layout-two-column,
+.canvas-node-preview .layout-three-column {
+  background: transparent;
+}
+
 .layout-slot {
   min-height: 36px;
   padding: 0.35rem;
   border: 1px dashed #cbd5e1;
   border-radius: 4px;
-  background: #f8fafc;
-  transition: background 0.15s, border-color 0.15s;
+  background: transparent;
+  transition: border-color 0.15s;
 }
 
 .layout-slot-over {
-  background: #dbeafe;
+  background: transparent;
   border-color: #3b82f6;
 }
 
@@ -131,6 +138,7 @@
 
 .layout-slot-preview {
   min-height: 20px;
+  background: transparent;
 }
 
 .canvas-node-delete-overlay {

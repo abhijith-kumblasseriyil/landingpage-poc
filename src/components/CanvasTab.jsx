@@ -7,6 +7,7 @@ import PageCanvas from './PageCanvas'
 import PreviewNavigation from './PreviewNavigation'
 import JsonViewer from './JsonViewer'
 import SettingsModal from './SettingsModal'
+import PageSettingsModal from './PageSettingsModal'
 import { getComponent, getDefaultProps } from './componentRegistry'
 import './CanvasTab.css'
 
@@ -18,6 +19,7 @@ function CanvasTab() {
     addPage,
     removePage,
     updateComponent,
+    updatePage,
     getOutputSchema,
     loadSchema,
     allowedComponents,
@@ -34,6 +36,7 @@ function CanvasTab() {
   const [showJson, setShowJson] = useState(false)
   const [settingsNode, setSettingsNode] = useState(null)
   const [settingsPageIndex, setSettingsPageIndex] = useState(null)
+  const [pageSettingsIndex, setPageSettingsIndex] = useState(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -51,6 +54,15 @@ function CanvasTab() {
   const handleSettingsClose = useCallback(() => {
     setSettingsNode(null)
     setSettingsPageIndex(null)
+  }, [])
+  const handlePageSettings = useCallback((index) => {
+    setPageSettingsIndex(index)
+  }, [])
+  const handlePageSettingsSave = useCallback((pageIndex, payload) => {
+    updatePage(pageIndex, payload)
+  }, [updatePage])
+  const handlePageSettingsClose = useCallback(() => {
+    setPageSettingsIndex(null)
   }, [])
 
   function findLayoutInTree(list, layoutId) {
@@ -162,6 +174,7 @@ function CanvasTab() {
               <button type="button" onClick={() => setCurrentPage(i)} className="canvas-tab-page-btn">
                 {p.name}
               </button>
+              <button type="button" onClick={(e) => { e.stopPropagation(); handlePageSettings(i); }} className="canvas-tab-page-settings" title="Page settings">⚙</button>
               {pages.length > 1 && (
                 <button type="button" onClick={() => removePage(i)} className="canvas-tab-page-remove" title="Remove page">×</button>
               )}
@@ -187,6 +200,17 @@ function CanvasTab() {
         <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
           <ComponentPalette allowedComponents={allowedComponents} />
           <div className="canvas-tab-canvas-wrap">
+            <div className="canvas-tab-page-header">
+              <h4 className="canvas-tab-page-title">{pages[currentPageIndex]?.name || 'Page'}</h4>
+              <button
+                type="button"
+                onClick={() => handlePageSettings(currentPageIndex)}
+                className="canvas-tab-page-style-btn"
+                title="Page settings & styles"
+              >
+                ⚙ Page Styles
+              </button>
+            </div>
             <PageCanvas isPreview={false} onSettings={handleSettings} />
           </div>
         </DndContext>
@@ -258,6 +282,14 @@ function CanvasTab() {
           pageIndex={settingsPageIndex ?? currentPageIndex}
           onSave={handleSettingsSave}
           onClose={handleSettingsClose}
+        />
+      )}
+      {pageSettingsIndex !== null && pages[pageSettingsIndex] && (
+        <PageSettingsModal
+          page={pages[pageSettingsIndex]}
+          pageIndex={pageSettingsIndex}
+          onSave={handlePageSettingsSave}
+          onClose={handlePageSettingsClose}
         />
       )}
     </div>

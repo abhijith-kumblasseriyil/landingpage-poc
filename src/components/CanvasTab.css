@@ -275,6 +275,26 @@
   font-weight: 500;
 }
 
+.canvas-tab-page-settings {
+  width: 24px;
+  height: 100%;
+  border: none;
+  border-left: 1px solid #e2e8f0;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-tab-page-settings:hover {
+  background: #e0f2fe;
+  color: #3b82f6;
+}
+
 .canvas-tab-page-remove {
   width: 24px;
   height: 100%;
@@ -348,6 +368,42 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.canvas-tab-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.canvas-tab-page-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.canvas-tab-page-style-btn {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 0.85rem;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.canvas-tab-page-style-btn:hover {
+  background: #f8fafc;
+  border-color: #3b82f6;
+  color: #3b82f6;
 }
 
 .canvas-tab-json-overlay {
